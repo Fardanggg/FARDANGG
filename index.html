@@ -195,8 +195,74 @@
               </div>
 
               <h1 class="title">
-                Halo, Saya <span class="highlight">Fardan</span>
+                <span id="animated-text"></span>
               </h1>
+
+              <style>
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 2%;
+  }
+
+  #animated-text {
+    border-radius: 2%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid rgba(255, 255, 255, 0.75);
+    animation: blink-caret 0.75s step-end infinite;
+    text-shadow: 0 0 10px #00f7ff1d, 0 0 20px #00f7ff2f, 0 0 30px #00f7ff41;
+    transition: all 0.3s ease;
+  }
+
+  @keyframes blink-caret {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: rgba(255, 255, 255, 0.75); }
+  }
+</style>
+
+              <script>
+  const phrases = [
+    "Halo, saya Fardan.",
+     "Startup? Ayo Mulai ! ",
+  
+  ];
+
+  let i = 0, j = 0;
+  let currentPhrase = '';
+  let isDeleting = false;
+
+  function typeEffect() {
+    const element = document.getElementById("animated-text");
+
+    if (!isDeleting && j <= phrases[i].length) {
+      currentPhrase = phrases[i].substring(0, j++);
+    } else if (isDeleting && j >= 0) {
+      currentPhrase = phrases[i].substring(0, j--);
+    }
+
+    element.textContent = currentPhrase;
+
+    let speed = isDeleting ? 50 : 100;
+
+    if (!isDeleting && j === phrases[i].length) {
+      speed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && j === 0) {
+      isDeleting = false;
+      i = (i + 1) % phrases.length;
+      speed = 500;
+    }
+
+    setTimeout(typeEffect, speed);
+  }
+
+  document.addEventListener("DOMContentLoaded", typeEffect);
+</script>
 
               <div class="description">
                 <p>
@@ -210,11 +276,58 @@
               </div>
 
               <div class="hero-buttons">
-                <a href="https://wa.me/6281211182" target="_blank"
-                  class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill">
-                  <i class="bi bi-whatsapp fs-5"></i> WhatsApp
-                </a>
-                <a href="#projects"
+                <!-- Tombol -->
+                <button type="button"
+                  class="btn btn-success d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill"
+                  data-bs-toggle="modal" data-bs-target="#popupGambar">
+                  <i class="bi bi-laptop fs-5"></i> Buat Website / Aplikasi
+                </button>
+
+                <!-- Modal tanpa backdrop -->
+                <div class="modal fade" id="popupGambar" tabindex="-1"
+                  aria-hidden="true" data-bs-backdrop="false">
+                  <div class="modal-dialog modal-dialog-centered"
+                    style="max-width: 500px;">
+                    <div class="modal-content border-0">
+                      <div class="modal-header border-0 p-2">
+                        <button type="button" class="btn-close"
+                          data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body p-0">
+                        <img src="img2/Jasa_web.jpeg" alt="Gambar Popup"
+                          class="img-fluid rounded">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- JavaScript -->
+                <script>
+  const modalElement = document.getElementById('popupGambar');
+  const modal = new bootstrap.Modal(modalElement);
+  let outsideClickHandler = null;
+
+  modalElement.addEventListener('shown.bs.modal', function () {
+    // Tambahkan handler klik di luar modal saat modal dibuka
+    outsideClickHandler = function (e) {
+      const modalContent = modalElement.querySelector('.modal-content');
+      if (!modalContent.contains(e.target)) {
+        modal.hide();
+      }
+    };
+    document.addEventListener('click', outsideClickHandler);
+  });
+
+  modalElement.addEventListener('hidden.bs.modal', function () {
+    // Hapus handler klik saat modal ditutup
+    if (outsideClickHandler) {
+      document.removeEventListener('click', outsideClickHandler);
+      outsideClickHandler = null;
+    }
+  });
+</script>
+
+                <a href="#Proyek"
                   class="btn btn-outline-primary d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill">
                   <i class="bi bi-briefcase fs-5"></i> Lihat Proyek
                 </a>
@@ -234,7 +347,6 @@
               /* Agar gambar tidak loncat ukuran */
               transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
             }
-
           </style>
 
             <div class="col-lg-6 hero-visual" data-aos="fade-up"
@@ -244,15 +356,15 @@
                   data-bs-ride="carousel" data-bs-interval="2000">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img src="a.jpg"
-                        class="d-block w-100" alt="Creative Design">
+                      <img src="a.jpg" class="d-block w-100"
+                        alt="Creative Design">
                     </div>
                     <div class="carousel-item">
-                      <img src="APK.jpg"
-                        class="d-block w-100" alt="Creative Design">
+                      <img src="APK.jpg" class="d-block w-100"
+                        alt="Creative Design">
                     </div>
                     <div class="carousel-item">
-                      <img src="assets/img/hosting.jpg" class="d-block w-100"
+                      <img src="img2/TKJ.jpeg" class="d-block w-100"
                         alt="Creative Design">
                     </div>
                     <div class="carousel-item">
@@ -270,8 +382,8 @@
                   </div>
 
                   <div class="experience-badge">
-                    <span class="years">270+</span>
-                    <span class="text">Happy Clients</span>
+                    <span class="years">Picture</span>
+                    <span class="text">My Projects</span>
                   </div>
                 </div>
 
@@ -414,7 +526,8 @@
                 <div
                   style="background-color: rgb(10, 35, 68); color: aliceblue; cursor: pointer; "
                   class="FARDAN card h-100 shadow-sm" data-bs-toggle="modal"
-                  data-bs-target="#modalProyek1" style="cursor: pointer;">
+                  data-bs-target="#modalProyek1"
+                  style="cursor: pointer;">
                   <div class="card-body">
                     <div class="fs-1 text-primary"><i
                         class="bi bi-code-slash"></i></div>
@@ -430,7 +543,8 @@
                 <div
                   style="background-color: rgb(10, 35, 68); color: aliceblue; cursor: pointer; "
                   class="FARDAN card h-100 shadow-sm" data-bs-toggle="modal"
-                  data-bs-target="#modalProyek2" style="cursor: pointer;">
+                  data-bs-target="#modalProyek2"
+                  style="cursor: pointer;">
                   <div class="card-body">
                     <div class="fs-1 text-success"><i
                         class="bi bi-android2"></i></div>
@@ -446,7 +560,8 @@
                 <div
                   style="background-color: rgb(10, 35, 68); color: aliceblue; cursor: pointer;  "
                   class="FARDAN card h-100 shadow-sm" data-bs-toggle="modal"
-                  data-bs-target="#modalProyek3" style="cursor: pointer;">
+                  data-bs-target="#modalProyek3"
+                  style="cursor: pointer;">
                   <div class="card-body">
                     <div class="fs-1 text-warning"><i
                         class="bi bi-cpu"></i></div>
@@ -462,7 +577,8 @@
                 <div
                   style="background-color: rgb(10, 35, 68); color: aliceblue; cursor: pointer;  "
                   class="FARDAN card h-100 shadow-sm" data-bs-toggle="modal"
-                  data-bs-target="#modalProyek4" style="cursor: pointer;">
+                  data-bs-target="#modalProyek4"
+                  style="cursor: pointer;">
                   <div class="card-body">
                     <div class="fs-1 text-danger"><i
                         class="bi bi-palette"></i></div>
@@ -530,18 +646,23 @@
                   <!-- Indicators -->
                   <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselProyek2"
-                      data-bs-slide-to="0" class="active" aria-current="true"
-                      aria-label="Slide 1"></button>
+                      data-bs-slide-to="0" class="active"
+                      aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselProyek2"
-                      data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselProyek2"
-                      data-bs-slide-to="2" aria-label="Slide 3"></button>
+                      data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
                     <button type="button" data-bs-target="#carouselProyek2"
-                      data-bs-slide-to="3" aria-label="Slide 4"></button>
+                      data-bs-slide-to="3"
+                      aria-label="Slide 4"></button>
                     <button type="button" data-bs-target="#carouselProyek2"
-                      data-bs-slide-to="4" aria-label="Slide 5"></button>
+                      data-bs-slide-to="4"
+                      aria-label="Slide 5"></button>
                     <button type="button" data-bs-target="#carouselProyek2"
-                      data-bs-slide-to="5" aria-label="Slide 6"></button>
+                      data-bs-slide-to="5"
+                      aria-label="Slide 6"></button>
                   </div>
 
                   <div class="carousel-inner">
@@ -573,13 +694,15 @@
 
                   <!-- Controls -->
                   <button class="carousel-control-prev" type="button"
-                    data-bs-target="#carouselProyek2" data-bs-slide="prev">
+                    data-bs-target="#carouselProyek2"
+                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"
                       aria-hidden="true"></span>
                     <span class="visually-hidden">Sebelumnya</span>
                   </button>
                   <button class="carousel-control-next" type="button"
-                    data-bs-target="#carouselProyek2" data-bs-slide="next">
+                    data-bs-target="#carouselProyek2"
+                    data-bs-slide="next">
                     <span class="carousel-control-next-icon"
                       aria-hidden="true"></span>
                     <span class="visually-hidden">Berikutnya</span>
@@ -613,9 +736,7 @@
                   data-bs-dismiss="modal"></button>
               </div>
               <div class="modal-body">
-                <img
-                  src="a.jpg"
-                  class="img-fluid mb-3" alt="Arduino">
+                <img src="a.jpg" class="img-fluid mb-3" alt="Arduino">
                 <p>Sistem menggunakan sensor turbidity dan buzzer untuk memberi
                   peringatan saat air tidak layak digunakan.</p>
               </div>
@@ -712,21 +833,15 @@
       <div id="preloader"></div>
 
       <!-- Vendor JS Files -->
-      <script
-        src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script
-        src="assets/vendor/php-email-form/validate.js"></script>
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/vendor/php-email-form/validate.js"></script>
       <script src="assets/vendor/aos/aos.js"></script>
-      <script
-        src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+      <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
       <script
         src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-      <script
-        src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-      <script
-        src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-      <script
-        src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+      <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+      <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+      <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 
       <!-- Main JS File -->
       <script src="assets/js/main.js"></script>
