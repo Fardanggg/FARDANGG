@@ -339,9 +339,55 @@
 
             // Smooth redirect with fade-out already handling the exit
             setTimeout(() => {
-                window.location.href = 'index1.html';
+                window.location.href = 'index.html';
             }, 14000);
         });
     </script>
 </body>
 </html>
+
+<style>
+    /* Responsif dan perataan ikon tanpa ubah struktur HTML */
+#icons-group {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#icons-group > div {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ukuran kecil (HP) */
+@media (max-width: 640px) {
+  #icons-group {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #icons-group > div {
+    width: 55px !important;
+    height: 55px !important;
+    font-size: 1.6rem !important;
+    padding: 0.5rem !important;
+    border-radius: 0.9rem !important;
+  }
+}
+
+/* Layar sangat kecil (di bawah 400px) */
+@media (max-width: 400px) {
+  #icons-group > div {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.4rem !important;
+    margin: 0.3rem 0;
+  }
+}
+
+</style>
